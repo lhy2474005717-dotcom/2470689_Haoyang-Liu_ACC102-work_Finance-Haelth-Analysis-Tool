@@ -29,7 +29,7 @@ def load_data():
 df = load_data()
 
 # ======================
-# 3. 【新增】用户自定义权重滑块（侧边栏）
+# 3. User defined weight slider (sidebar)
 # ======================
 st.sidebar.markdown("---")
 st.sidebar.subheader("⚙️ Custom Health Score Weights")
@@ -65,7 +65,7 @@ health_score_help = """
 """
 
 # ======================
-# 5. 【修改】评分函数：使用用户输入的权重
+# 5. Rating function: using user input weights
 # ======================
 def calculate_health_score(row, w1, w2, w3, w4):
     sales_growth = row["sales_growth"] if pd.notna(row["sales_growth"]) else 0
@@ -78,7 +78,7 @@ def calculate_health_score(row, w1, w2, w3, w4):
     return score
 
 # ======================
-# 6. 诊断函数（不变）
+# 6. Diagnostic function
 # ======================
 def display_diagnosis(row, ticker):
     diagnosis = []
@@ -97,7 +97,7 @@ def display_diagnosis(row, ticker):
         st.write(f"• {d}")
 
 # ======================
-# 7. User Selection（不变）
+# 7. User Selection
 # ======================
 st.sidebar.header("Control Panel")
 comparison_mode = st.sidebar.checkbox("Enable Peer Comparison Mode")
@@ -124,7 +124,7 @@ if comparison_mode:
         score2 = calculate_health_score(row2, w_roa, w_debt, w_margin, w_growth)
 
 # ======================
-# 8. Radar Chart（不变）
+# 8. Radar Chart
 # ======================
 st.markdown("---")
 col_chart, col_stat = st.columns([2, 1])
@@ -157,7 +157,7 @@ with col_stat:
         else: st.error("Weak financial health: potential financial risk.")
 
 # ======================
-# 9. Financial Diagnosis（不变）
+# 9. Financial Diagnosis
 # ======================
 st.markdown("---")
 st.subheader("🔍 Financial Diagnosis")
@@ -169,7 +169,7 @@ with diag_b:
         display_diagnosis(row2, tic2)
 
 # ======================
-# 10. Indicator Explanation（不变）
+# 10. Indicator Explanation
 # ======================
 with st.expander("📖 Indicator Explanation & Definitions"):
     st.markdown("""
@@ -181,7 +181,7 @@ with st.expander("📖 Indicator Explanation & Definitions"):
     """)
 
 # ======================
-# 11. Historical Trends（不变）
+# 11. Historical Trends
 # ======================
 st.subheader("📈 Historical Trend Analysis")
 metric_to_plot = st.radio("Select Metric for Trend", ["roa", "debt_ratio", "profit_margin", "sales_growth"], horizontal=True)
@@ -194,18 +194,18 @@ st.plotly_chart(fig_t, use_container_width=True)
 
 
 # ======================
-# 12. Industry Benchmark（完全不变）
+# 12. Industry Benchmark
 # ======================
 st.markdown("---")
 st.subheader("🏢 Industry Benchmark Comparison")
-# 基础参数获取
+# Acquire basic indicators
 sich1 = row1["sich"]
 yr1 = row1["year"]
 sich2, yr2 = None, None
 if comparison_mode and row2 is not None:
     sich2 = row2["sich"]
     yr2 = row2["year"]
-# 单股票模式：仅展示公司A的行业数据
+# Single stock mode: only display Company A
 if not comparison_mode:
     industry_df = df[
         (df["sich"] == sich1) & 
@@ -265,7 +265,7 @@ else:
     st.dataframe(compare_df, use_container_width=True)
 
 # ======================
-# 13. Industry Boxplot（不变）
+# 13. Industry Boxplot
 # ======================
 st.markdown("---")
 st.subheader("📊 Industry Distribution Analysis")
@@ -276,7 +276,7 @@ box_metric = st.radio(
 )
 metric_names = {"roa":"ROA","profit_margin":"Profit Margin","debt_ratio":"Debt Ratio","asset_turnover":"Asset Turnover"}
 
-# 以下行业箱线图代码完全不变
+# Industry Box Diagram Code
 try:
     sich1 = row1["sich"]
     yr1 = row1["year"]
