@@ -28,8 +28,7 @@ Place your data2.csv file in the root directory of the project.Ensure the CSV fo
 4.Run the application
 - streamlit run app.py
 5.Access the application
-Open your web browser and navigate to http://localhost:8501
-
+Open your web browser automatically.
 
 Data Source:
 Compustat (via WRDS)
